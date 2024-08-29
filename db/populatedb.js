@@ -10,20 +10,22 @@ const PASSWORD = process.env.PASSWORD;
 const SQLPORT = process.env.SQLPORT;
 
 const SQL = `
- CREATE TABLE IF NOT EXIST users(
+ CREATE TABLE IF NOT EXISTS users(
   id SERIAL PRIMARY KEY,
   firstName VARCHAR(50) NOT NULL,
   lastName VARCHAR(50) NOT NULL,
   email VARCHAR(50) UNIQUE NOT NULL,
+  username VARCHAR(50) UNIQUE NOT NULL,
   password VARCHAR(50) NOT NULL,
   member BOOLEAN,
-  admin BOOLEAN)
+  admin BOOLEAN);
   
-CREATE TABLE IF NOT EXIST messages(
+CREATE TABLE IF NOT EXISTS messages(
   id SERIAL PRIMARY KEY,
   title VARCHAR(50) NOT NULL,
   text VARCHAR(250) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`;
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+`;
 
 async function main() {
   console.log("seending the database...");
