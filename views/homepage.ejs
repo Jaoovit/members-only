@@ -16,6 +16,7 @@
                     <h1> Message board </h1>
                 <% } else { %>
                     <h1>Welcome <%= info.firstname + " " + info.lastname %></h1>
+                <% } %>
                     <form action="/" method="POST">
                         <h2>Leave your message here</h2>
                         <p>
@@ -28,7 +29,17 @@
                         </p>
                         <button type="submit">send</button>
                     </form>
-                <% } %>
+                    <h1>Messages</h1>
+                    
+                        <ul>
+                            <% messages.forEach(function(message) { %>
+                            <li>
+                                <strong><%= message.title %></strong>: <%= message.text %> <br>
+                                <small>Posted by: <%= message.author %> on <%= message.created_at %></small>
+                            </li>
+                            <% }); %>
+                        </ul>
+                    
             </header>
         </body>
     </head>

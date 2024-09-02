@@ -50,9 +50,12 @@ const userAuthenticate = (req, res, next) => {
   })(req, res, next);
 };
 
-const getHomepage = (req, res) => {
+const getHomepage = async (req, res) => {
   const userInfo = req.session.userInfo;
-  res.render("homepage", { info: userInfo });
+  const messages = await db.getAllMessages();
+  console.log(messages);
+
+  res.render("homepage", { info: userInfo, messages: messages });
 };
 
 const userLogout = (req, res, next) => {

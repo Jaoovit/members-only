@@ -32,10 +32,23 @@ const createMessage = async (title, text, author) => {
   return rows[0];
 };
 
+const getAllMessages = async () => {
+  const { rows } = await pool.query(
+    "SELECT * FROM messages ORDER BY created_at DESC"
+  );
+  return rows;
+};
+
 /*
 const deleteMessage = async (id) => {
   await pool.query("DELETE * FROM messages WHERE id = $1", [id]);
 };
 */
 
-module.exports = { createUser, getUserByUsername, getUserById, createMessage };
+module.exports = {
+  createUser,
+  getUserByUsername,
+  getUserById,
+  createMessage,
+  getAllMessages,
+};
