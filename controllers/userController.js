@@ -53,7 +53,6 @@ const userAuthenticate = (req, res, next) => {
 const getHomepage = async (req, res) => {
   const userInfo = req.session.userInfo;
   const messages = await db.getAllMessages();
-  console.log(messages);
 
   res.render("homepage", { info: userInfo, messages: messages });
 };

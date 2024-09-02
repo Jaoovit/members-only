@@ -6,17 +6,21 @@
             <header>
                 <header>
                     <% if(!info) { %>
-                        <a href="/sign-in">sign-in</a>
-                        <a href="/sign-up">sign-up</a>
+                        <p>
+                            Click in <a href="/sign-in">sign-in</a> to login in your account
+                        </p>
+                        <p>
+                            If you don't hava an account, click in <a href="/sign-up">sign-up</a>
+                        </p>
+                        
                     <% } else { %>
                         <a href="/logout">log-out</a>
                     <% } %>
                 </header>
                 <% if(!info) { %>
-                    <h1> Message board </h1>
+                    <h1> Welcome to only-members Message Board </h1>
                 <% } else { %>
                     <h1>Welcome <%= info.firstname + " " + info.lastname %></h1>
-                <% } %>
                     <form action="/" method="POST">
                         <h2>Leave your message here</h2>
                         <p>
@@ -29,17 +33,22 @@
                         </p>
                         <button type="submit">send</button>
                     </form>
-                    <h1>Messages</h1>
-                    
-                        <ul>
-                            <% messages.forEach(function(message) { %>
-                            <li>
-                                <strong><%= message.title %></strong>: <%= message.text %> <br>
-                                <small>Posted by: <%= message.author %> on <%= message.created_at %></small>
-                            </li>
-                            <% }); %>
-                        </ul>
-                    
+                <% } %>
+                        <% if (info) { %>
+                            <ul>
+                                <% messages.forEach(function(message) { %>
+                                <li>
+                                    <strong><%= message.title %></strong>: <%= message.text %> <br>
+                                    <% if (info.member === true) { %>
+                                        <small>Posted by: <%= message.author %> on <%= message.created_at %></small>
+                                    <% } else if (info.admin === true) { %>
+                                        <small>Posted by: <%= message.author %> on <%= message.created_at %></small>
+                                        <button>delete</button>
+                                    <% } %>
+                                </li>
+                                <% }); %>
+                            </ul>
+                        <% } %>
             </header>
         </body>
     </head>
