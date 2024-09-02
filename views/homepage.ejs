@@ -16,6 +16,18 @@
                     <h1> Message board </h1>
                 <% } else { %>
                     <h1>Welcome <%= info.firstname + " " + info.lastname %></h1>
+                    <form action="/" method="POST">
+                        <h2>Leave your message here</h2>
+                        <p>
+                            <label for="title">Title: </label>
+                            <input type="text" id="title" name="title" required>
+                        </p>
+                        <p>
+                            <label for="message">Message: </label>
+                            <input type="text" id="message" name="message" required>
+                        </p>
+                        <button type="submit">send</button>
+                    </form>
                 <% } %>
             </header>
         </body>
