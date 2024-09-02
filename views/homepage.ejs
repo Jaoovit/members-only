@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Homepage</title>
+        <body>
+            <header>
+                <header>
+                    <% if(!info) { %>
+                        <a href="/sign-in">sign-in</a>
+                        <a href="/sign-up">sign-up</a>
+                    <% } else { %>
+                        <a href="/logout">log-out</a>
+                    <% } %>
+                </header>
+                <% if(!info) { %>
+                    <h1> Message board </h1>
+                <% } else { %>
+                    <h1>Welcome <%= info.firstname + " " + info.lastname %></h1>
+                <% } %>
+            </header>
+        </body>
+    </head>
+</html>

@@ -42,11 +42,32 @@ const userAuthenticate = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      console.log("Session:", req.session);
-      console.log("User:", req.user);
-      return res.redirect("/homepage");
+
+      req.session.userInfo = req.user;
+
+      return res.redirect("/");
     });
   })(req, res, next);
+};
+
+const getHomepage = (req, res) => {
+  const userInfo = req.session.userInfo;
+  res.render("homepage", { info: userInfo });
+};
+
+const userLogout = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.clearCookie("connect.sid");
+      return res.redirect("/sign-in");
+    });
+  });
 };
 
 module.exports = {
@@ -54,4 +75,6 @@ module.exports = {
   getSignInForm,
   postNewUser,
   userAuthenticate,
+  getHomepage,
+  userLogout,
 };
