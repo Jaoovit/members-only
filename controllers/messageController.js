@@ -16,4 +16,14 @@ const postNewMessage = async (req, res, next) => {
   }
 };
 
-module.exports = { postNewMessage };
+const deleteMessageById = async (req, res, next) => {
+  try {
+    const messageId = req.params.id;
+    await db.deleteMessage(messageId);
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { postNewMessage, deleteMessageById };

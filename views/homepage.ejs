@@ -60,7 +60,9 @@
                                         <small>Posted by: <%= message.author %> on <%= message.created_at %></small>
                                     <% } %>
                                     <% if (info && info.admin) { %>
-                                        <button>delete</button>
+                                        <form action="/delete/<%= message.id %>" method="POST">
+                                            <button type="submit">delete</button>
+                                        </form>
                                     <% } %>
                                 </li>
                                 <% }); %>
