@@ -88,6 +88,22 @@ const updateMemberStatus = async (req, res, next) => {
   }
 };
 
+const updateAdminStatus = async (req, res, next) => {
+  try {
+    const adminPassword = req.body.adminPassword;
+    const userId = req.session.userInfo.id;
+
+    if (adminPassword === "admin") {
+      await db.setAdmin(userId);
+      res.redirect("/");
+    } else {
+      throw new Error("This admin password is invalid");
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getSignUpForm,
   getSignInForm,
@@ -96,4 +112,5 @@ module.exports = {
   getHomepage,
   userLogout,
   updateMemberStatus,
+  updateAdminStatus,
 };

@@ -9,5 +9,6 @@ router.post("/sign-in", userController.userAuthenticate);
 router.get("/", userController.getHomepage);
 router.get("/logout", userController.userLogout);
 router.post("/member", userController.updateMemberStatus);
+router.post("/admin", userController.updateAdminStatus);
 
 module.exports = router;
