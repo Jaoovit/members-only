@@ -16,6 +16,24 @@
                     <% } else { %>
                         <a href="/logout">log-out</a>
                     <% } %>
+                    <% if (!info.member) { %>
+                        <p>
+                            <form action="/member" method="POST">
+                                <label for="memberPassword">Password to become a member:</label>
+                                <input type="password" name="memberPassword" id="memberPassword">
+                                <button type="submit">become a member</button>
+                            </form>
+                        </p>
+                    <% } %>
+                    <% if (!info.admin) { %>   
+                        <p>
+                            <form action="/admin" method="POST">
+                                <label for="adminPassword">Password to become an admin:</label>
+                                <input type="password" name="adminPassword" id="adminPassword">
+                                <button type="submit">become a admin</button>
+                            </form>
+                        </p>
+                    <% } %>
                 </header>
                 <% if(!info) { %>
                     <h1> Welcome to only-members Message Board </h1>
@@ -33,22 +51,20 @@
                         </p>
                         <button type="submit">send</button>
                     </form>
-                <% } %>
-                        <% if (info) { %>
+                <% } %>         
                             <ul>
                                 <% messages.forEach(function(message) { %>
                                 <li>
                                     <strong><%= message.title %></strong>: <%= message.text %> <br>
-                                    <% if (info.member === true) { %>
+                                    <% if (info && info.member) { %>
                                         <small>Posted by: <%= message.author %> on <%= message.created_at %></small>
-                                    <% } else if (info.admin === true) { %>
-                                        <small>Posted by: <%= message.author %> on <%= message.created_at %></small>
+                                    <% } %>
+                                    <% if (info && info.admin) { %>
                                         <button>delete</button>
                                     <% } %>
                                 </li>
                                 <% }); %>
-                            </ul>
-                        <% } %>
+                            </ul>         
             </header>
         </body>
     </head>

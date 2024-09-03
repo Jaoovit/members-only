@@ -18,8 +18,12 @@ const getUserByUsername = async (username) => {
 };
 
 const getUserById = async (id) => {
-  const { rows } = await pool.query(`SELECT * FROM users WHERE id = ${id}`);
-  return rows;
+  const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+  return rows[0];
+};
+
+const setMember = async (id) => {
+  await pool.query("UPDATE users SET member = true WHERE id = $1", [id]);
 };
 
 // Message queries
@@ -49,6 +53,7 @@ module.exports = {
   createUser,
   getUserByUsername,
   getUserById,
+  setMember,
   createMessage,
   getAllMessages,
 };

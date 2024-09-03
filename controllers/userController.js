@@ -72,6 +72,22 @@ const userLogout = (req, res, next) => {
   });
 };
 
+const updateMemberStatus = async (req, res, next) => {
+  try {
+    const memberPassword = req.body.memberPassword;
+    const userId = req.session.userInfo.id;
+
+    if (memberPassword === "member") {
+      await db.setMember(userId);
+      res.redirect("/");
+    } else {
+      throw new Error("This member password is invalid");
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
   getSignUpForm,
   getSignInForm,
@@ -79,4 +95,5 @@ module.exports = {
   userAuthenticate,
   getHomepage,
   userLogout,
+  updateMemberStatus,
 };
