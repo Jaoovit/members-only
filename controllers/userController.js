@@ -79,6 +79,7 @@ const updateMemberStatus = async (req, res, next) => {
 
     if (memberPassword === "member") {
       await db.setMember(userId);
+      req.session.userInfo.isMember = true;
       res.redirect("/");
     } else {
       throw new Error("This member password is invalid");
@@ -95,6 +96,7 @@ const updateAdminStatus = async (req, res, next) => {
 
     if (adminPassword === "admin") {
       await db.setAdmin(userId);
+      req.session.userInfo.isAdmin = true;
       res.redirect("/");
     } else {
       throw new Error("This admin password is invalid");
